@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-##About
+## About
 
 Extension provides a way to add the currently watching anime directly to the Anilist
 - Requires the user to provide the Oauth token 
