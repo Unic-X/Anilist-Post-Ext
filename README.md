@@ -1,6 +1,6 @@
 # Anlist-Post-Ext
 
-[![Issues](https://github.com/Unic-X/Anlist-Post-Ext/issues)](https://img.shields.io/github/issues/Unic-X/Anlist-Post-Ext?style=for-the-badge)
+[![Issues](https://img.shields.io/github/issues/Unic-X/Anlist-Post-Ext?style=for-the-badge)](https://github.com/Unic-X/Anlist-Post-Ext/issues)
 
 ![Issues](https://img.shields.io/github/issues/Unic-X/Anlist-Post-Ext?style=for-the-badge)
 ## About
