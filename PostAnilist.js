@@ -1,0 +1,4 @@
+var query = `
+query{
+    
+}`

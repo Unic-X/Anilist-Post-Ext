@@ -4,6 +4,8 @@ let title = document.getElementsByTagName("title")[0].innerHTML
 
 console.log();
 
+var a = document.getElementsByClassName("click-to-load");
+
 class AnimePahe{
     constructor(){
         this.name=null;
@@ -24,6 +26,18 @@ class AnimePahe{
     showAnimeEpisode(){
         return this.episode;
     }
+
+    isLoaded() {
+        document.querySelector(".click-to-load").addEventListener("click",()=>
+        {console.log("clicked on sex");
+        return true;
+    })
+    }
+    
+    isPaused(){
+        
+    }
+    
 
 }
 
@@ -49,6 +63,7 @@ function alogund(){
 function sex(w){
     if(alogund() instanceof AnimePahe ){
         let a=alogund().animepaheNameEpisode(w);
+        console.log(a.name+" "+a.intEp);
         return a.name;
     }else{
         //pass
@@ -61,6 +76,9 @@ query ($id: Int, $page: Int, $perPage: Int, $search: String) {
   Page (page: $page, perPage: $perPage) {
     media (id: $id, search: $search) {
       id
+      title{
+          english
+      }
     }
   }
 }
@@ -104,9 +122,10 @@ function handleError(error) {
 //                   .then(handleData)
 //                   .catch(handleError);
 async function chutiya(){
+
     let a = await fetch(url, options).then(handleResponse)
     .then(handleData)
     .catch(handleError);
-    console.log(a.data.Page.media[0].id)
+    console.log(a.data.Page.media[0])
 }
 chutiya();
