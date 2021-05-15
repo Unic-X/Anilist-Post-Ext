@@ -1,10 +1,7 @@
-//Todo 1. check the anime name
 
 let title = document.getElementsByTagName("title")[0].innerHTML
 
-console.log();
-
-var a = document.getElementsByClassName("click-to-load");
+var playButton = document.getElementsByClassName("click-to-load");
 
 class AnimePahe{
     constructor(){
@@ -52,8 +49,7 @@ function containsURL(str) {
 
 function alogund(){
     if(containsURL("animepahe")){
-        let animepahe = new AnimePahe;
-        return animepahe;
+        return new AnimePahe;
     }else if(containsURL("googanime")){
         let gogoanime = new Gogoanime;
         return gogoanime;
@@ -73,23 +69,19 @@ function sex(w){
 
 var query = `
 query ($id: Int, $page: Int, $perPage: Int, $search: String) {
-  Page (page: $page, perPage: $perPage) {
-    media (id: $id, search: $search) {
-      id
-      title{
-          english
+    Page(page: $page, perPage: $perPage) {
+      media(id: $id, search: $search, type: ANIME) {
+        id
       }
     }
   }
-}
+  
 `;
-
-
 
 let variables = {
     search: sex(title),
     page: 1,
-    perPage: 1
+    perPage: 10
 };
 
 var url = 'https://graphql.anilist.co',
@@ -97,7 +89,7 @@ var url = 'https://graphql.anilist.co',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify({
             query: query,
@@ -114,18 +106,13 @@ function handleData(data) {
     return data;
 }
 
-function handleError(error) {
-    alert('Error, check console');
-    console.warn(error); 
-}
-//let a = fetch(url, options).then(handleResponse)
-//                   .then(handleData)
-//                   .catch(handleError);
 async function chutiya(){
-
     let a = await fetch(url, options).then(handleResponse)
     .then(handleData)
-    .catch(handleError);
-    console.log(a.data.Page.media[0])
+    .catch((error)=>{
+        console.warn(error);
+    });
+    console.log(a);
 }
-chutiya();
+
+Promise.resolve(chutiya())

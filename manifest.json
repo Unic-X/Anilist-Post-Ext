@@ -17,8 +17,7 @@
       {
         "matches":[
           "*://animepahe.com/play*",
-          "*://animepahe.org/play*",
-          "*://*.gogoanime.ai/*"
+          "*://animepahe.org/play*"
         ],
         "js":["content.js"]
       }

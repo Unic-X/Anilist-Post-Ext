@@ -1,14 +1,13 @@
 query ($id: Int, $page: Int, $perPage: Int, $search: String) {
-  Page (page: $page, perPage: $perPage) {
-    pageInfo {
-      perPage
-    }
-    media (id: $id, search: $search) {
-      id
-      title {
-        romaji
-        native
+    Page(page: $page, perPage: 1) {
+      media(id: $id, search: $search, type: ANIME) {           #returns only the anime as result  
+        id                                                     
       }
     }
   }
+mutation ($mediaId: Int, $status: MediaListStatus) {
+    SaveMediaListEntry (mediaId: $mediaId, status: $status) {
+        id
+        status
+    }
 }
