@@ -7,4 +7,4 @@
 
 Extension provides a way to add the currently watching anime directly to the Anilist
 - Requires the user to provide the Oauth token 
-> The process of manually providing the token to authenticate the extension will be shortened soon 
+> The process of manually providing the token to authenticate has been shortened to Implicit Grant 
