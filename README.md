@@ -1,4 +1,5 @@
 # Anlist-Post-Ext
+![](https://img.shields.io/github/build/Unic-X/Anlist-Post-Ext?style=for-the-badge)
 
 [![Issues](https://img.shields.io/github/issues/Unic-X/Anlist-Post-Ext?style=for-the-badge)](https://github.com/Unic-X/Anlist-Post-Ext/issues)
 
@@ -7,6 +8,8 @@
 ![Stars](https://img.shields.io/github/stars/Unic-X/Anlist-Post-Ext?style=for-the-badge)
 
 ![](https://img.shields.io/github/license/Unic-X/Anlist-Post-Ext?style=for-the-badge)
+
+
 ## About
 
 Extension provides a way to add the currently watching anime directly to the Anilist
