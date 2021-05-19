@@ -30,16 +30,11 @@ class AnimePahe{
             return true;
     })
     }
-    
-    
-
 }
 
 class Gogoanime{
     constructor(){
-        //Gets the title name directly from the div which has 
-        console.log("hello");
-        title=document.getElementsByClassName("title_name")[0].children[0].textContent;
+        //Gets the title name directly from the div which has
         this.name=null;
         this.episode=null;
     }
@@ -47,9 +42,12 @@ class Gogoanime{
     gogoanimeEpisode(str){
         //SEIJO NO MARYOKU WA BANNOU DESU EPISODE 7 ENGLISH SUBBED
         console.log("hello world");
-        let a=toString(str).toLowerCase();
-        b=a.split("episode");
-        console.log(b);
+        console.log(title);
+        let [animeName,strEp]=str.split("Episode");
+        const intEp=parseInt(strEp);
+        return({
+            animeName,intEp
+        })
     }
 }
 
@@ -66,25 +64,26 @@ function containsURL(str) {
 //Not a good name but checks which site and returns the instance of the site class wrapper
 function alogund(){
     if(containsURL("animepahe")){
+        console.log("Hello Wawwaad");
         return new AnimePahe;
     }else if(containsURL("gogoanime")){
+        console.log(title);
+        title=document.getElementsByClassName("title_name")[0].children[0].textContent;
         return new Gogoanime;
     }else{
         //pass
     }
 }
 
-
 //Returns the name based on the site
 function toAnimeName(w){
     if(alogund() instanceof AnimePahe ){
         let a=alogund().animepaheNameEpisode(w);
-        alogund().isLoaded();
         console.log(a.name+" "+a.intEp);
         return a.name;
     }else if(alogund() instanceof Gogoanime){
-        let a=alogund()
-        a.gogoanimeEpisode()
+        let a=alogund();
+        console.log(a.gogoanimeEpisode(w))
     }else{
         //pass
     }
@@ -99,7 +98,6 @@ query ($id: Int, $page: Int, $perPage: Int, $search: String) {
       }
     }
   }
-  
 `;
 
 let variables = {
@@ -122,9 +120,6 @@ var url = 'https://graphql.anilist.co',
         })
     };
 
-query=`
-
-`
 function handleResponse(response) {
     return response.json().then(function (json) {
         return response.ok ? json : Promise.reject(json);
@@ -143,5 +138,4 @@ async function chutiya(){
     });
     console.log(a);
 }
-
 Promise.resolve(chutiya())
