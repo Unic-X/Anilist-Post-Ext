@@ -80,11 +80,11 @@ function alogund(){
 function toAnimeName(w){
     if(alogund() instanceof AnimePahe ){
         let a=alogund().animepaheNameEpisode(w);
-        console.log(a.name+"|"+a.intEp);
+        console.log(a.name+"| "+a.intEp);
         return a.name;
     }else if(alogund() instanceof Gogoanime){
         let a=alogund().gogoanimeEpisode(w);
-        console.log(a.animeName+"|"+a.intEp)
+        console.log(a.animeName+"| "+a.intEp)
         return a.animeName
     }else{
         //pass
@@ -112,7 +112,18 @@ var url = 'https://graphql.anilist.co',
     options = {
         method: 'POST',
         headers: {
-            'Authorization': 'Bearer ' + "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjZjNjAzOGVlNmZlYWY0NTBiOWU0ZDhjZmJkN2JjOWYxZGNhMmU4MjkxN2VjNmY0NTU0M2U4YzczY2FlZTQ1ZGZkMjEzMjMwZmEzNWNmMzE3In0.eyJhdWQiOiI1NDc0IiwianRpIjoiNmM2MDM4ZWU2ZmVhZjQ1MGI5ZTRkOGNmYmQ3YmM5ZjFkY2EyZTgyOTE3ZWM2ZjQ1NTQzZThjNzNjYWVlNDVkZmQyMTMyMzBmYTM1Y2YzMTciLCJpYXQiOjE2MjEzNDMwNjcsIm5iZiI6MTYyMTM0MzA2NywiZXhwIjoxNjUyODc5MDY3LCJzdWIiOiI1MTkzMDQ2Iiwic2NvcGVzIjpbXX0.ADJuTyYUGPXoCUdcVLqEWfyRQK2rw9iq29xeW3qY2G2UEnZQV1M-gTsQ9_FNCWhCsTzZwHIXFF6N3__6EYcU04a5TP_jRuKHHgo-8D0Pd3hquHKbDBrirLT63G68KpfGbG6_PbabKyu-rOU-s-MjSWnIfbMBrgjxLFbxZGy4RwHJ7HmPcJlgtl2Cu3SOWpujwOW8Tbx3JILbcD_qIAfNiaOGbBDJYYYi6vqRKWomSQ2opHl94Lf2jwUQ3gIDEwjAmxTezZoR4M80RyV_VDLHiSl6lj1e-2uyBLGV0dIzLsTK7rlPHaIP9ZZcqZMLNsQyU5YM2dj_snPebtRQ4Jk4vSnTW1RXSh2QKQfSGH9HmAK2Kn1Tfh6jPJdiW6xdyp8-zWnyBY28p4HrB2Opeejtw0tUbpMBRijxOmO8alM2O8tnMcgzCU-1commawgFCey66uswwF3d13Wt14CX4lfDuDTLqfH4yWyG3a16vRoRjO0Lr8AV_3vZZo1hCrJQ6m2aaXRnE-gaTKkdL0nhk6VgiBNfRwFobBZXpifWSE0GK2WhO7_enpwlfeF5UpgkGB-kgb0nBMguf8fii2E52i-Av2UgsJDFSC7O15W29tnrUVMJ0GMZHA4gvnObig_ycm5FZ5GoTMitZujVe7XwIovF_GzORzNVmqrlfsm8xKzuYT8",
+            /*'Authorization': 'Bearer ' + `eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjZjNjAzOGVlNmZlYWY0NT
+            BiOWU0ZDhjZmJkN2JjOWYxZGNhMmU4MjkxN2VjNmY0NTU0M2U4YzczY2FlZTQ1ZGZkMjEzMjMwZmEzNWNmMzE3In0.eyJhdWQ
+            iOiI1NDc0IiwianRpIjoiNmM2MDM4ZWU2ZmVhZjQ1MGI5ZTRkOGNmYmQ3YmM5ZjFkY2EyZTgyOTE3ZWM2ZjQ1NTQzZThjNzNj
+            YWVlNDVkZmQyMTMyMzBmYTM1Y2YzMTciLCJpYXQiOjE2MjEzNDMwNjcsIm5iZiI6MTYyMTM0MzA2NywiZXhwIjoxNjUyODc5M
+            DY3LCJzdWIiOiI1MTkzMDQ2Iiwic2NvcGVzIjpbXX0.ADJuTyYUGPXoCUdcVLqEWfyRQK2rw9iq29xeW3qY2G2UEnZQV1M-gT
+            sQ9_FNCWhCsTzZwHIXFF6N3__6EYcU04a5TP_jRuKHHgo-8D0Pd3hquHKbDBrirLT63G68KpfGbG6_PbabKyu-rOU-s-MjSWn
+            IfbMBrgjxLFbxZGy4RwHJ7HmPcJlgtl2Cu3SOWpujwOW8Tbx3JILbcD_qIAfNiaOGbBDJYYYi6vqRKWomSQ2opHl94Lf2jwUQ
+            3gIDEwjAmxTezZoR4M80RyV_VDLHiSl6lj1e-2uyBLGV0dIzLsTK7rlPHaIP9ZZcqZMLNsQyU5YM2dj_snPebtRQ4Jk4vSnTW
+            1RXSh2QKQfSGH9HmAK2Kn1Tfh6jPJdiW6xdyp8-zWnyBY28p4HrB2Opeejtw0tUbpMBRijxOmO8alM2O8tnMcgzCU-1commaw
+            gFCey66uswwF3d13Wt14CX4lfDuDTLqfH4yWyG3a16vRoRjO0Lr8AV_3vZZo1hCrJQ6m2aaXRnE-gaTKkdL0nhk6VgiBNfRwF
+            obBZXpifWSE0GK2WhO7_enpwlfeF5UpgkGB-kgb0nBMguf8fii2E52i-Av2UgsJDFSC7O15W29tnrUVMJ0GMZHA4gvnObig_y
+            cm5FZ5GoTMitZujVe7XwIovF_GzORzNVmqrlfsm8xKzuYT8`,*/
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
