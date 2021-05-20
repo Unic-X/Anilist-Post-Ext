@@ -1,6 +1,6 @@
 query ($id: Int, $page: Int, $perPage: Int, $search: String) {
     Page(page: $page, perPage: 1) {
-      media(id: $id, search: $search, type: ANIME) {           #returns only the anime as result  
+      media(id: $id, search: $search, type: ANIME) {           #returns only the anime id as result  
         id                                                     
       }
     }
