@@ -1,26 +1,24 @@
 {
-    "name": "Anilist",
-    "description": "Sends Anilist API a post request",
-    "version": "1.0",
-    "manifest_version": 2,
-    "background": {
-        "service_worker": "bg.js"
-      },
-    
-    "icons": {
-      "128": "assets/ani.png"
-    },
-    "permissions": [
-      "tabs"
-    ],
-    "content_scripts":[
-      {
-        "matches":[
-          "*://animepahe.com/play*",
-          "*://animepahe.org/play*",
-          "*://www1.gogoanime.ai/*"
-        ],
-        "js":["content.js"]
-      }
-    ]
+  "name": "Anilist",
+  "description": "Sends Anilist API a post request",
+  "version": "1.0",
+  "manifest_version": 2,
+  "background": {
+    "service_worker": "bg.js"
+  },
+
+  "icons": {
+    "128": "assets/ani.png"
+  },
+  "permissions": ["tabs"],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://animepahe.com/play*",
+        "*://animepahe.org/play*",
+        "*://www1.gogoanime.ai/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
 }

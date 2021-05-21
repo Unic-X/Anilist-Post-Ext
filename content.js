@@ -1,94 +1,96 @@
+var title = document.getElementsByTagName("title")[0].innerHTML;
 
-var title = document.getElementsByTagName("title")[0].innerHTML
+class AnimePahe {
+  constructor() {
+    this.name = null;
+    this.episode = null;
+    this.isPaused = true;
+  }
+  animepaheNameEpisode(str) {
+    let anime = str.split("::")[0];
+    let [name, episode] = anime.split("Ep.");
+    const intEp = parseInt(episode);
+    this.name = name;
+    this.episode = intEp;
+    return {
+      name,
+      intEp,
+    };
+  }
+  showAnimeName() {
+    return this.name;
+  }
+  showAnimeEpisode() {
+    return this.episode;
+  }
 
-class AnimePahe{
-    constructor(){
-        this.name=null;
-        this.episode=null;
-        this.isPaused=true;
-    }
-    animepaheNameEpisode(str) {
-        let anime = str.split("::")[0];
-        let [name,episode]=anime.split("Ep.");
-        const intEp=parseInt(episode);
-        this.name=name;this.episode=intEp;
-        return({
-            name,intEp
-        })
-    }
-    showAnimeName(){
-        return this.name;
-    }
-    showAnimeEpisode(){
-        return this.episode;
-    }
-
-    isLoaded() {
-        document.querySelector(".click-to-load").addEventListener("click",()=>
-        {
-            console.log(`%c Player is Now Loaded!', 'font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 
+  isLoaded() {
+    document.querySelector(".click-to-load").addEventListener("click", () => {
+      console.log(`%c Player is Now Loaded!', 'font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 
                         6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 
                         18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)`);
-            return true;
-    })
-    }
+      return true;
+    });
+  }
 }
 
-class Gogoanime{
-    constructor(){
-        //Gets the title name directly from the div which has
-        this.name=null;
-        this.episode=null;
-    }
+class Gogoanime {
+  constructor() {
+    //Gets the title name directly from the div which has
+    this.name = null;
+    this.episode = null;
+  }
 
-    gogoanimeEpisode(str){
-        //SEIJO NO MARYOKU WA BANNOU DESU EPISODE 7 ENGLISH SUBBED
-        let [animeName,strEp]=str.split("Episode");
-        const intEp=parseInt(strEp);
-        this.name=animeName;this.episode=intEp;
-        return({
-            animeName,intEp
-        })
-    }
+  gogoanimeEpisode(str) {
+    //SEIJO NO MARYOKU WA BANNOU DESU EPISODE 7 ENGLISH SUBBED
+    let [animeName, strEp] = str.split("Episode");
+    const intEp = parseInt(strEp);
+    this.name = animeName;
+    this.episode = intEp;
+    return {
+      animeName,
+      intEp,
+    };
+  }
 }
 
 //Checks whether the URL contains the site name
 function containsURL(str) {
-    if(window.location.href.includes(str)){
-        return true;
-    }
-    else{
-        return false;
-    }
+  if (window.location.href.includes(str)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 //Not a good name but checks which site and returns the instance of the site class wrapper
-function alogund(){
-    if(containsURL("animepahe")){
-        console.log("Hello Wawwaad");
-        return new AnimePahe;
-    }else if(containsURL("gogoanime")){
-        console.log(title);
-        title=document.getElementsByClassName("title_name")[0].children[0].textContent;
-        return new Gogoanime;
-    }else{
-        //pass
-    }
+function alogund() {
+  if (containsURL("animepahe")) {
+    console.log("Hello Wawwaad");
+    return new AnimePahe();
+  } else if (containsURL("gogoanime")) {
+    console.log(title);
+    title =
+      document.getElementsByClassName("title_name")[0].children[0].textContent;
+    return new Gogoanime();
+  } else {
+    //pass
+  }
 }
 
 //Returns the name based on the site
-function toAnimeName(w){
-    if(alogund() instanceof AnimePahe ){
-        let a=alogund().animepaheNameEpisode(w);
-        console.log(a.name+"| "+a.intEp);
-        return a.name;
-    }else if(alogund() instanceof Gogoanime){
-        let a=alogund().gogoanimeEpisode(w);
-        console.log(a.animeName+"| "+a.intEp)
-        return a.animeName
-    }else{
-        //pass
-    }
+function toAnimeName(w) {
+  if (alogund() instanceof AnimePahe) {
+    let a = alogund().animepaheNameEpisode(w);
+    console.log(a.name + "| " + a.intEp);
+    return a.name;
+  } else if (alogund() instanceof Gogoanime) {
+    let a = alogund().gogoanimeEpisode(w);
+    console.log(a.animeName + "| " + a.intEp);
+    return a.animeName;
+  } else {
+    //pass
+  }
 }
 //Returns the anime name with the Episode no.
 
@@ -103,52 +105,42 @@ query ($id: Int, $page: Int, $perPage: Int, $search: String) {
 `;
 
 let variables = {
-    search: toAnimeName(title),
-    page: 1,
-    perPage: 1
+  search: toAnimeName(title),
+  page: 1,
+  perPage: 1,
 };
 
-var url = 'https://graphql.anilist.co',
-    options = {
-        method: 'POST',
-        headers: {
-            /*'Authorization': 'Bearer ' + `eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjZjNjAzOGVlNmZlYWY0NT
-            BiOWU0ZDhjZmJkN2JjOWYxZGNhMmU4MjkxN2VjNmY0NTU0M2U4YzczY2FlZTQ1ZGZkMjEzMjMwZmEzNWNmMzE3In0.eyJhdWQ
-            iOiI1NDc0IiwianRpIjoiNmM2MDM4ZWU2ZmVhZjQ1MGI5ZTRkOGNmYmQ3YmM5ZjFkY2EyZTgyOTE3ZWM2ZjQ1NTQzZThjNzNj
-            YWVlNDVkZmQyMTMyMzBmYTM1Y2YzMTciLCJpYXQiOjE2MjEzNDMwNjcsIm5iZiI6MTYyMTM0MzA2NywiZXhwIjoxNjUyODc5M
-            DY3LCJzdWIiOiI1MTkzMDQ2Iiwic2NvcGVzIjpbXX0.ADJuTyYUGPXoCUdcVLqEWfyRQK2rw9iq29xeW3qY2G2UEnZQV1M-gT
-            sQ9_FNCWhCsTzZwHIXFF6N3__6EYcU04a5TP_jRuKHHgo-8D0Pd3hquHKbDBrirLT63G68KpfGbG6_PbabKyu-rOU-s-MjSWn
-            IfbMBrgjxLFbxZGy4RwHJ7HmPcJlgtl2Cu3SOWpujwOW8Tbx3JILbcD_qIAfNiaOGbBDJYYYi6vqRKWomSQ2opHl94Lf2jwUQ
-            3gIDEwjAmxTezZoR4M80RyV_VDLHiSl6lj1e-2uyBLGV0dIzLsTK7rlPHaIP9ZZcqZMLNsQyU5YM2dj_snPebtRQ4Jk4vSnTW
-            1RXSh2QKQfSGH9HmAK2Kn1Tfh6jPJdiW6xdyp8-zWnyBY28p4HrB2Opeejtw0tUbpMBRijxOmO8alM2O8tnMcgzCU-1commaw
-            gFCey66uswwF3d13Wt14CX4lfDuDTLqfH4yWyG3a16vRoRjO0Lr8AV_3vZZo1hCrJQ6m2aaXRnE-gaTKkdL0nhk6VgiBNfRwF
-            obBZXpifWSE0GK2WhO7_enpwlfeF5UpgkGB-kgb0nBMguf8fii2E52i-Av2UgsJDFSC7O15W29tnrUVMJ0GMZHA4gvnObig_y
-            cm5FZ5GoTMitZujVe7XwIovF_GzORzNVmqrlfsm8xKzuYT8`,*/
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            query: query,
-            variables: variables
-        })
-    };
+var url = "https://graphql.anilist.co",
+  options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: query,
+      variables: variables,
+    }),
+  };
 
 function handleResponse(response) {
-    return response.json().then(function (json) {
-        return response.ok ? json : Promise.reject(json);
-    });
+  return response.json().then(function (json) {
+    return response.ok ? json : Promise.reject(json);
+  });
 }
 
 function handleData(data) {
-    return data;
+  return data;
 }
 
-async function chutiya(){
-    let a = await fetch(url, options).then(handleResponse)
+async function chutiya() {
+  let a = await fetch(url, options)
+    .then(handleResponse)
     .then(handleData)
-    .catch((error)=>{
-        console.warn(error);
+    .catch((error) => {
+      console.warn(error);
     });
-    console.log(a);
+  console.log(a);
 }
-Promise.resolve(chutiya())
+
+Promise.resolve(chutiya());
