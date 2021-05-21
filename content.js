@@ -42,7 +42,6 @@ class Gogoanime {
   }
 
   gogoanimeEpisode(str) {
-    //SEIJO NO MARYOKU WA BANNOU DESU EPISODE 7 ENGLISH SUBBED
     let [animeName, strEp] = str.split("Episode");
     const intEp = parseInt(strEp);
     this.name = animeName;
@@ -56,7 +55,7 @@ class Gogoanime {
 
 //Checks whether the URL contains the site name
 function containsURL(str) {
-  if (window.location.href.includes(str)) {
+  if (location.hostname.match(str)) {
     return true;
   } else {
     return false;
@@ -65,13 +64,16 @@ function containsURL(str) {
 
 //Not a good name but checks which site and returns the instance of the site class wrapper
 function alogund() {
-  if (containsURL("animepahe")) {
-    console.log("Hello Wawwaad");
+  if (containsURL("animepahe.org")  || containsURL("animepahe.com")) {
     return new AnimePahe();
-  } else if (containsURL("gogoanime")) {
-    console.log(title);
-    title =
-      document.getElementsByClassName("title_name")[0].children[0].textContent;
+  } else if (containsURL("gogoanime.ai")) {
+    try {
+      title = document.getElementsByClassName("title_name")[0].children[0].textContent;
+      console.log(title);
+    } catch (error) {
+      //the current active page is homepage 
+      title=null;
+    }
     return new Gogoanime();
   } else {
     //pass
@@ -80,14 +82,15 @@ function alogund() {
 
 //Returns the name based on the site
 function toAnimeName(w) {
-  if (alogund() instanceof AnimePahe) {
-    let a = alogund().animepaheNameEpisode(w);
+  const instanceOfClass=alogund();
+  if (instanceOfClass instanceof AnimePahe) {
+    let a = instanceOfClass.animepaheNameEpisode(w);
     console.log(a.name + "| " + a.intEp);
-    return a.name;
-  } else if (alogund() instanceof Gogoanime) {
-    let a = alogund().gogoanimeEpisode(w);
+    return (a.name!==null?a.name:console.warn(title+" was not found"));
+  } else if (instanceOfClass instanceof Gogoanime) {
+    let a = instanceOfClass.gogoanimeEpisode(w);
     console.log(a.animeName + "| " + a.intEp);
-    return a.animeName;
+    return (a.animeName!==null?a.animeName:console.warn(title+" was not found"));
   } else {
     //pass
   }
