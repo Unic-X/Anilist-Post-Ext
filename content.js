@@ -95,17 +95,27 @@ function toAnimeName(w) {
     //pass
   }
 }
-//Returns the anime name with the Episode no.
+//Returns single anime name with the Episode n and bunch of other hot stuffs
 
-var query = `
-query ($id: Int, $page: Int, $perPage: Int, $search: String) {
-    Page(page: $page, perPage: $perPage) {
-      media(id: $id, search: $search, type: ANIME) {
+let query = 
+` query ($id: Int, $search: String) {
+    Media (id: $id, search: $search, type: ANIME) {
         id
-      }
+        duration
+        description(asHtml: false)
+        episodes
+        bannerImage
+        title {
+            romaji
+            english
+            native
+        }
+        coverImage {
+            large
+        }
     }
-  }
-`;
+}`
+;
 
 let variables = {
   search: toAnimeName(title),
