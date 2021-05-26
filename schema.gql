@@ -1,10 +1,20 @@
-query ($id: Int, $page: Int, $perPage: Int, $search: String) {
-    Page(page: $page, perPage: 1) {
-      media(id: $id, search: $search, type: ANIME) {           #returns only the anime id as result  
-        id                                                     
-      }
+query ($id: Int, $search: String) {
+    Media (id: $id, search: $search, type: ANIME) {
+        id
+        duration
+        description(asHtml: false)
+        episodes
+        bannerImage
+        title {
+            romaji
+            english
+            native
+        }
+        coverImage {
+            large
+        }
     }
-  }
+}
 mutation ($mediaId: Int, $status: MediaListStatus) {
     SaveMediaListEntry (mediaId: $mediaId, status: $status) {
         id

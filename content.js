@@ -1,5 +1,8 @@
 var title = document.getElementsByTagName("title")[0].innerHTML;
 
+
+
+
 class AnimePahe {
   constructor() {
     this.name = null;
@@ -24,7 +27,7 @@ class AnimePahe {
     return this.episode;
   }
 
-  isLoaded() {
+  onLoaded() {
     document.querySelector(".click-to-load").addEventListener("click", () => {
       console.log(`%c Player is Now Loaded!', 'font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 
                         6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 
@@ -84,6 +87,7 @@ function alogund() {
 function toAnimeName(w) {
   const instanceOfClass=alogund();
   if (instanceOfClass instanceof AnimePahe) {
+    instanceOfClass.onLoaded()
     let a = instanceOfClass.animepaheNameEpisode(w);
     console.log(a.name + "| " + a.intEp);
     return (a.name!==null?a.name:console.warn(title+" was not found"));
