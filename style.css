@@ -4,6 +4,9 @@
 ::-moz-selection {
   background: #ffb7b7; 
 }
+body {
+  min-width:500px;
+}
 .container {
     display: grid;
     grid-template-rows: 20px 300px;
@@ -22,7 +25,7 @@
 }
 .item3{
   display: grid;
-  grid-template-rows: 20px 280px;
+  grid-template-rows: 1fr 14rem;
   gap: 5px;
   background-color: rgb(87, 186, 211);
 }
@@ -37,5 +40,4 @@
 }
 .description{
   overflow-x: auto
-
 }
