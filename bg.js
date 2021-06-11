@@ -1,18 +1,28 @@
-let acha={
+var paadu={
     key:null,
-    coverImage:null,
-    titleRomaji:null
-  }
-  chrome.storage.sync.set(acha, function() {
-    console.log('Value is set to ' + acha);
-  })
+    coverImage:null
+}
+
+function allah(a){
+    document.getElementById("chamar").innerHTML=a;
+
+}
+chrome.storage.sync.get(['key','coverImage'], function(result) {
+    paadu.coverImage=result.coverImage;paadu.key=result.key;
+    allah(result.key);
+})
+
+var acha={
+    key:null,
+    coverImage:null
+};
 
 
 `Changes the storage values when any change from content.js`
 chrome.storage.onChanged.addListener((changes)=>{
-    console.log(changes)
-    chrome.storage.sync.get(['key','coverImage',"titleRomaji"], function(result) {
-        console.log('Value currently is ' + result.key + "coverImage: "+result.coverImage);
-        acha.key=result.key;acha.coverImage=result.coverImage;acha.titleRomaji;
+    chrome.storage.sync.get(['key','coverImage'], function(result) {
+        acha.key=result.key;acha.coverImage=result.coverImage;
+        allah(result.key);
+        console.log(acha);
     });
 })

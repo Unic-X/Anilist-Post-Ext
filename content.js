@@ -162,10 +162,10 @@ async function chutiya() {
     }
 
     chrome.storage.sync.set(acha, function() {
-      console.log('Value is set to ' + acha);
+      console.log('Value set to :' + acha);
     });
     chrome.storage.sync.get(['key','coverImage'], function(result) {
-    console.log('Value currently is ' + result.key + "coverImage: "+result.coverImage);
+    console.log('Value set to :' + result.key + "\n coverImage: "+result.coverImage);
 });
 }
 
