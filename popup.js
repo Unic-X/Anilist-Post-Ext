@@ -25,3 +25,16 @@ chrome.storage.onChanged.addListener(()=>{
         allah(result.key,result.coverImage);
     });
 })
+
+const changeLang=document.getElementById("sign_in");
+
+
+function toLang(){
+    changeLang.innerHTML=`Current Language is (${currentLang})`;
+    changeLang.addEventListener("click",()=>{
+        
+    })
+}
+
+
+

@@ -1,6 +1,10 @@
 var title = document.getElementsByTagName("title")[0].innerHTML;
 
+var AUTH_TOKEN=null;
 
+function getTokenFromURI(){
+  return document.URL.valueOf()
+}
 
 class AnimePahe {
   constructor() {
@@ -31,6 +35,10 @@ class AnimePahe {
       console.log('%c Player is Now Loaded!', 'font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)');
       return true;
     });
+  }
+
+  changeUI(){
+    document.createElement()
   }
 }
 
@@ -75,7 +83,12 @@ function alogund() {
       title=null;
     }
     return new Gogoanime();
-  } else {
+  } else if(containsURL("anilist.co/......")){
+    AUTH_TOKEN=getTokenFromURI();
+    chrome.storage.sync.set({auth_token:AUTH_TOKEN},()=>{
+      console.log(`current token is set to:\n ${AUTH_TOKEN}  \n :do not share with anyone`)
+    })
+  }else{
     //pass
   }
 }
@@ -98,8 +111,63 @@ function toAnimeName(w) {
 }
 //Returns single anime name with the Episode n and bunch of other hot stuffs
 
-let query = 
-` query ($id: Int, $search: String) {
+
+function handleResponse(response) {
+  return response.json().then(function (json) {
+    return response.ok ? json : Promise.reject(json);
+  });
+}
+
+function handleData(data) {
+  return data;
+}
+
+async function chutiya(query,variables) {
+  if(AUTH_TOKEN===null){
+    console.warn("user hasn't logged in log in to update the anilist");
+    return
+  }
+  let url = "https://graphql.anilist.co",
+  options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: query,
+      variables: variables,
+    }),
+  };
+
+  let a = await fetch(url, options)
+    .then(handleResponse)
+    .then(handleData)
+    .catch((error) => {
+      console.warn(error);
+    });
+
+    let acha={
+      key:a.data.Media.description,
+      coverImage:a.data.Media.coverImage.large,
+      titleEnglish:a.data.Media.title.english,
+      latestAnime:a.data.Media.id
+    }
+
+    chrome.storage.sync.set(acha, function() {
+      console.log('Value set to :' + acha);
+    });
+}
+
+
+async function getAnime(){
+  let variables = {
+    search: toAnimeName(title),
+    page: 1,
+    perPage: 1,
+  };
+
+  let query=` query ($id: Int, $search: String) {
     Media (id: $id, search: $search, type: ANIME) {
         id
         duration
@@ -117,56 +185,28 @@ let query =
     }
 }`
 ;
-
-let variables = {
-  search: toAnimeName(title),
-  page: 1,
-  perPage: 1,
-};
-
-var url = "https://graphql.anilist.co",
-  options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      query: query,
-      variables: variables,
-    }),
-  };
-
-function handleResponse(response) {
-  return response.json().then(function (json) {
-    return response.ok ? json : Promise.reject(json);
-  });
+  await chutiya(query,variables);
 }
 
-function handleData(data) {
-  return data;
-}
-
-async function chutiya() {
-  let a = await fetch(url, options)
-    .then(handleResponse)
-    .then(handleData)
-    .catch((error) => {
-      console.warn(error);
+function updateUser(stat){
+  let query =`
+    mutation ($mediaId: Int, $status: MediaListStatus) {
+      SaveMediaListEntry (mediaId: $mediaId, status: $status) {
+        id
+        status
+        }
+      }
+    `;
+    let id=null;
+    chrome.storage.sync.get([latestAnime],(result)=>{
+      id=result.latestAnime
     });
+    let variables = {
+      mediaId:id,
+      status:stat
+    };
 
-    let acha={
-      key:a.data.Media.description,
-      coverImage:a.data.Media.coverImage.large,
-      titleRomaji:a.data.Media.title.english
-    }
-
-    chrome.storage.sync.set(acha, function() {
-      console.log('Value set to :' + acha);
-    });
-    chrome.storage.sync.get(['key','coverImage'], function(result) {
-    console.log('Value set to :' + result.key + "\n coverImage: "+result.coverImage);
-});
+    chutiya(query,variables)
 }
 
-Promise.resolve(chutiya());
+Promise.resolve(getAnime());
