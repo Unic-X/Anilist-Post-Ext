@@ -16,7 +16,8 @@
       "matches": [
         "*://animepahe.com/play*",
         "*://animepahe.org/play*",
-        "*://www1.gogoanime.ai/*"
+        "*://www1.gogoanime.ai/*",
+        "https://anilist.co/404"
       ],
       "js": ["content.js"]
     }

@@ -2,8 +2,18 @@ var title = document.getElementsByTagName("title")[0].innerHTML;
 
 var AUTH_TOKEN=null;
 
-function getTokenFromURI(){
-  return document.URL.valueOf()
+console.log(window.location.href);
+
+class Anilist{
+  constructor(){
+    this.url=window.location.href;
+  }
+  authenticate(){
+    let a = /access_token=[^&]+/gi.exec(this.url);
+    AUTH_TOKEN=a[0].toString().replace(/access_token=/gi, "");
+    chrome.storage.sync.set({auth_token:AUTH_TOKEN});
+    console.log(`logged in!! token was :\n ${AUTH_TOKEN} \n DO NOT SHARE!!`)
+  }
 }
 
 class AnimePahe {
@@ -83,11 +93,9 @@ function alogund() {
       title=null;
     }
     return new Gogoanime();
-  } else if(containsURL("anilist.co/......")){
-    AUTH_TOKEN=getTokenFromURI();
-    chrome.storage.sync.set({auth_token:AUTH_TOKEN},()=>{
-      console.log(`current token is set to:\n ${AUTH_TOKEN}  \n :do not share with anyone`)
-    })
+  } else if(containsURL("anilist.co/404#token")){
+    let a=new Anilist();
+    a.authenticate()
   }else{
     //pass
   }

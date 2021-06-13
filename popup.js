@@ -3,6 +3,10 @@ var paadu={
     coverImage:null
 }
 
+const loginURL="https://anilist.co/api/v2/oauth/authorize?client_id=5474&response_type=token";
+
+const match = "https://anilist.co/404#access_token="
+
 function allah(a,b){
     document.getElementById("chamar").innerHTML=a;
     document.getElementById("chamar_image").style.backgroundImage=`url(${b})`;
