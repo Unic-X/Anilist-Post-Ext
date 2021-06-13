@@ -2,8 +2,6 @@ var title = document.getElementsByTagName("title")[0].innerHTML;
 
 var AUTH_TOKEN=null;
 
-console.log(window.location.href);
-
 class Anilist{
   constructor(){
     this.url=window.location.href;
@@ -75,12 +73,21 @@ class Gogoanime {
 function containsURL(str) {
   if (location.hostname.match(str)) {
     return true;
-  } else {
+  } else if(location.href.match(str)){
+    return true;
+  }else{
     return false;
   }
 }
 
-//Not a good name but checks which site and returns the instance of the site class wrapper
+if(containsURL("anilist.co/404#access_token")){
+  let a=new Anilist();
+  a.authenticate()
+}else{
+  console.log(location.hostname)
+}
+
+//Not a good name but checks which site and returns the instance of the site's class wrapper
 function alogund() {
   if (containsURL("animepahe.org") || containsURL("animepahe.com")) {
     return new AnimePahe();
@@ -93,9 +100,6 @@ function alogund() {
       title=null;
     }
     return new Gogoanime();
-  } else if(containsURL("anilist.co/404#token")){
-    let a=new Anilist();
-    a.authenticate()
   }else{
     //pass
   }
@@ -131,10 +135,6 @@ function handleData(data) {
 }
 
 async function chutiya(query,variables) {
-  if(AUTH_TOKEN===null){
-    console.warn("user hasn't logged in log in to update the anilist");
-    return
-  }
   let url = "https://graphql.anilist.co",
   options = {
     method: "POST",
@@ -217,4 +217,4 @@ function updateUser(stat){
     chutiya(query,variables)
 }
 
-Promise.resolve(getAnime());
+//Promise.resolve(getAnime());
