@@ -1,16 +1,33 @@
 var title = document.getElementsByTagName("title")[0].innerHTML;
 
-var AUTH_TOKEN=null;
-
 class Anilist{
   constructor(){
     this.url=window.location.href;
+    this.authenticated=false;
   }
   authenticate(){
     let a = /access_token=[^&]+/gi.exec(this.url);
-    AUTH_TOKEN=a[0].toString().replace(/access_token=/gi, "");
-    chrome.storage.sync.set({auth_token:AUTH_TOKEN});
+    let AUTH_TOKEN=a[0].toString().replace(/access_token=/gi, "");
+    chrome.storage.sync.set({auth_token:AUTH_TOKEN,logged_in:true});
     console.log(`logged in!! token was :\n ${AUTH_TOKEN} \n DO NOT SHARE!!`)
+    this.authenticated=true;
+  }
+  changeUI(){
+    if(this.authenticated){
+      //will change UI in future
+    }
+  }
+
+  //clears the chrome storage data of the extension only
+  resetData(){
+    let confirmAction = confirm("Are you sure to execute this action this will make u relogin?");
+        if (confirmAction) {
+          chrome.storage.sync.clear(()=>{
+            alert("You have cleared all your data saved in chrome");
+          })
+        } else {
+          alert("Action canceled");
+        }
   }
 }
 
@@ -121,7 +138,6 @@ function toAnimeName(w) {
     //pass
   }
 }
-//Returns single anime name with the Episode n and bunch of other hot stuffs
 
 
 function handleResponse(response) {
@@ -135,19 +151,47 @@ function handleData(data) {
 }
 
 async function chutiya(query,variables) {
-  let url = "https://graphql.anilist.co",
-  options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      query: query,
-      variables: variables,
-    }),
-  };
+  let url = 'https://graphql.anilist.co';
+  var options=null;
+  function returnHeader(){
+    var token={};
+    token.
 
+    //getting data out of this shit i can't
+    chrome.storage.sync.get(null,(a)=>{
+      console.log(a);
+    });
+    
+    if("auth_token" in token){
+      console.log("how");
+      options = {
+        method: "POST",
+        headers: {
+          'Authorization': 'Bearer ' + token.auth_token,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },body: JSON.stringify({
+          query: query,
+          variables: variables,
+        }),
+      };
+    }else{
+      console.log("allah");
+      options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },body: JSON.stringify({
+          query: query,
+          variables: variables,
+        }),
+      };
+    }return options;
+  }
+
+  returnHeader()
+  
   let a = await fetch(url, options)
     .then(handleResponse)
     .then(handleData)
@@ -163,7 +207,7 @@ async function chutiya(query,variables) {
     }
 
     chrome.storage.sync.set(acha, function() {
-      console.log('Value set to :' + acha);
+      console.log(acha);
     });
 }
 
@@ -217,4 +261,4 @@ function updateUser(stat){
     chutiya(query,variables)
 }
 
-//Promise.resolve(getAnime());
+Promise.resolve(getAnime());
