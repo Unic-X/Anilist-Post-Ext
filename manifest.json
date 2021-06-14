@@ -10,7 +10,7 @@
   "icons": {
     "128": "assets/ani.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage","tabs"],
   "content_scripts": [
     {
       "matches": [
