@@ -3,6 +3,10 @@
   font-family: 'SFPro';
   src: url('assets/SFPro.ttf');
 }
+@font-face{
+  font-family: 'SFProRegular';
+  src: url('assets/SFProRegular.ttf');
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -12,7 +16,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number]{
   font-family: "SFPro";
-  width: 100px;
+  width: 125px;
   border: none;
   background:transparent;
   color: #fefeff;
@@ -23,23 +27,27 @@ input[type=number] {
   -moz-appearance: textfield;
     text-align: center;
 }
-
-.Info-Like > svg{
-  height: 12px;
-  width: 12px;
+.container > div>svg{
+  height: 24px;
+  width: 24px;
+}
+.Info-Like >svg{
+  height: 24px;
+  width: 24px;
   right: 0%;
   position: relative;
 }
 
 body {
     font-size: 20px;
-    font-family: "SFPro";
-    width:400px;
+    font-family: "SFProRegular";
+    width:350px;
     background-color: #202125;
     color:#fefeff;
     
   }
 .container {
+  position: relative;
     display: grid;
     grid-template-columns: 0.6fr 0.9fr 0.7fr;
     grid-auto-columns: 1fr;
@@ -56,16 +64,20 @@ body {
   
   .Back { grid-area: Back; }
   
-  .AnimeName { grid-area: AnimeName; }
+  .AnimeName { grid-area: AnimeName; text-align: center; font-family: "SFProRegular";}
   
   .Info-Like { grid-area: Info-Like; }
+  .Info-Like>svg{
+    position: absolute;
+    right: 0;
+  }
   
   .Main {
     margin-left: 5px;
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
     grid-template-rows: 2fr repeat(2, 0.2fr);
-    gap: 2px 0px;
+    gap: 2px 4px;
     grid-auto-flow: row;
     grid-template-areas:
       "Image Name"
@@ -74,7 +86,7 @@ body {
     grid-area: Main;
   }
   
-  .Image { grid-area: Image; }
+  .Image { grid-area: Image;border-radius: 8px; }
   
   .Name { grid-area: Name; }
   
@@ -124,7 +136,7 @@ body {
       display: inline-block;
     }
     .TimesRW > div > input {
-      width: 220px;
+      width: 270px;
      }
      
 
