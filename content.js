@@ -31,12 +31,16 @@ class Anilist{
   }
 }
 
+
+//AnimePahe Class wrapper
 class AnimePahe {
   constructor() {
     this.name = null;
     this.episode = null;
     this.isPaused = true;
   }
+
+  //Gets the name and episode from the html>title of animepahe not too fancy 
   animepaheNameEpisode(str) {
     let anime = str.split("::")[0];
     let [name, episode] = anime.split("Ep.");
@@ -63,6 +67,7 @@ class AnimePahe {
   }
 
   changeUI(){
+    //Will add functionality to inject a little UI for faster interaction with the extension
     document.createElement()
   }
 }
@@ -83,6 +88,11 @@ class Gogoanime {
       animeName,
       intEp,
     };
+  }
+
+  changeUI(){
+    //Will add functionality to inject a little UI for faster interaction with the extension
+    document.createElement()
   }
 }
 
@@ -105,7 +115,7 @@ if(containsURL("anilist.co/404#access_token")){
 }
 
 //Not a good name but checks which site and returns the instance of the site's class wrapper
-function alogund() {
+function checkSite() {
   if (containsURL("animepahe.org") || containsURL("animepahe.com")) {
     return new AnimePahe();
   } else if (containsURL("gogoanime.ai")) {
@@ -124,9 +134,8 @@ function alogund() {
 
 //Returns the name based on the site
 function toAnimeName(w) {
-  const instanceOfClass=alogund();
+  const instanceOfClass=checkSite();
   if (instanceOfClass instanceof AnimePahe) {
-    instanceOfClass.onLoaded()
     let a = instanceOfClass.animepaheNameEpisode(w);
     console.log(a.name + "| " + a.intEp);
     return (a.name!==null?a.name:console.warn(title+" was not found"));
@@ -149,21 +158,24 @@ function handleResponse(response) {
 function handleData(data) {
   return data;
 }
+function halwa(a){
+  return a
+}
 
-async function chutiya(query,variables) {
+async function requestAnilist(query,variables) {
   let url = 'https://graphql.anilist.co';
   var options=null;
   function returnHeader(){
     var token={};
-    token.
 
     //getting data out of this shit i can't
     chrome.storage.sync.get(null,(a)=>{
-      console.log(a);
+      token=a;
+      console.log(token);
     });
+    console.log(token);
     
     if("auth_token" in token){
-      console.log("how");
       options = {
         method: "POST",
         headers: {
@@ -176,7 +188,6 @@ async function chutiya(query,variables) {
         }),
       };
     }else{
-      console.log("allah");
       options = {
         method: "POST",
         headers: {
@@ -199,18 +210,24 @@ async function chutiya(query,variables) {
       console.warn(error);
     });
 
-    let acha={
+    let aboutAnime={
       key:a.data.Media.description,
       coverImage:a.data.Media.coverImage.large,
       titleEnglish:a.data.Media.title.english,
       latestAnime:a.data.Media.id
     }
 
-    chrome.storage.sync.set(acha, function() {
-      console.log(acha);
+    chrome.storage.sync.set(aboutAnime, function() {
+      console.log(aboutAnime);
     });
 }
 
+/*
+Returns the Anime Info call stack is 
+getAnime()->            Initial call wrapping the other two functions
+requestAnilist()->      Requests the Anilist for the data     
+chrome.storage.sync()   Sets the data in the chrome storage
+*/
 
 async function getAnime(){
   let variables = {
@@ -237,7 +254,7 @@ async function getAnime(){
     }
 }`
 ;
-  await chutiya(query,variables);
+  await requestAnilist(query,variables);
 }
 
 function updateUser(stat){
@@ -258,7 +275,23 @@ function updateUser(stat){
       status:stat
     };
 
-    chutiya(query,variables)
+    requestAnilist(query,variables)
 }
 
 Promise.resolve(getAnime());
+
+
+/*
+Call Stack 
+getAnime()→toAnimeName()→checkSite()→containsURL()→Matches the URL with given input
+   |         ↓
+   |     Variables+Query(Static)        
+   ↓         ↓
+   ↪requestAnilist()→returnHeader[inner function]()
+                                          ↓
+                                        header+query(static)
+                                          ↓
+                                        fetch()→ Store in Chrome.storage.sync();
+
+
+*/

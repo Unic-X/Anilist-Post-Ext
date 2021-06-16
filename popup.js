@@ -9,9 +9,6 @@ signInButton.addEventListener("click",()=>{
     chrome.tabs.create({ url: "https://anilist.co/api/v2/oauth/authorize?client_id=5474&response_type=token" })
 })
 
-const loginURL="https://anilist.co/api/v2/oauth/authorize?client_id=5474&response_type=token";
-
-
 function allah(a,b){
     document.getElementById("chamar").innerHTML=a;
     document.getElementById("chamar_image").style.backgroundImage=`url(${b})`;
