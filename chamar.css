@@ -1,0 +1,148 @@
+
+@font-face{
+  font-family: 'SFPro';
+  src: url('assets/SFPro.ttf');
+}
+@font-face{
+  font-family: 'SFProRegular';
+  src: url('assets/SFProRegular.ttf');
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]{
+  font-family: "SFPro";
+  width: 125px;
+  border: none;
+  background:transparent;
+  color: #fefeff;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+    text-align: center;
+}
+.container > div>svg{
+  height: 24px;
+  width: 24px;
+}
+.Info-Like >svg{
+  height: 24px;
+  width: 24px;
+  right: 0%;
+  position: relative;
+}
+
+body {
+    font-size: 20px;
+    font-family: "SFProRegular";
+    width:350px;
+    background-color: #202125;
+    color:#fefeff;
+    
+  }
+.container {
+  position: relative;
+    display: grid;
+    grid-template-columns: 0.6fr 0.9fr 0.7fr;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 0.1fr 1fr 1.3fr;
+    gap: 4px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Back AnimeName Info-Like"
+      "Main Main Main"
+      "AllahCumming AllahCumming AllahCumming";
+    width: 100%;
+    height: 102.5%;
+  }
+  
+  .Back { grid-area: Back; }
+  
+  .AnimeName { grid-area: AnimeName; text-align: center; font-family: "SFProRegular";}
+  
+  .Info-Like { grid-area: Info-Like; }
+  .Info-Like>svg{
+    position: absolute;
+    right: 0;
+  }
+  
+  .Main {
+    margin-left: 5px;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-rows: 2fr repeat(2, 0.2fr);
+    gap: 2px 4px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Image Name"
+      "Image Status"
+      "Image Status2";
+    grid-area: Main;
+  }
+  
+  .Image { grid-area: Image;border-radius: 8px; }
+  
+  .Name { grid-area: Name; }
+  
+  .Status { grid-area: Status; }
+  
+  .Status2 { grid-area: Status2; }
+  
+  .AllahCumming {
+    margin-left: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 4px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Episodes-Watched Episodes-Watched Episodes-Watched"
+      "Rating Rating Rating"
+      "Start-Date-End-Date Start-Date-End-Date Start-Date-End-Date"
+      "Times-Rewatched Times-Rewatched Times-Rewatched"
+      "Visibility Visibility Visibility";
+    grid-area: AllahCumming;
+  }
+  
+  .Episodes-Watched { grid-area: Episodes-Watched; }
+  
+  .Rating { grid-area: Rating; }
+    .TimesRW>div,button{
+      display: inline-block;
+    }
+    button{
+      background:transparent;
+      border: none;
+      padding-block: 0;
+    }
+    button>svg{
+      margin: 0 ;
+      color:#fefeff;
+    }
+    .STED>div,button{
+      display: inline-block;
+    }
+    .VisibilityCB>div,button{
+      display: inline-block;
+    }
+    
+    .EPW>div,button{
+      display: inline-block;
+    }
+    .TimesRW > div > input {
+      width: 270px;
+     }
+     
+
+  .Start-Date-End-Date { grid-area: Start-Date-End-Date; }
+  
+  .Times-Rewatched { grid-area: Times-Rewatched; }
+  
+  .Visibility { grid-area: Visibility; }
+  
