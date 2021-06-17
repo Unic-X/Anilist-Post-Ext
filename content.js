@@ -164,46 +164,37 @@ function halwa(a){
 
 async function requestAnilist(query,variables) {
   let url = 'https://graphql.anilist.co';
-  var options=null;
-  function returnHeader(){
-    var token={};
 
-    //getting data out of this shit i can't
     chrome.storage.sync.get(null,(a)=>{
-      token=a;
-      console.log(token);
-    });
-    console.log(token);
-    
-    if("auth_token" in token){
-      options = {
-        method: "POST",
-        headers: {
-          'Authorization': 'Bearer ' + token.auth_token,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },body: JSON.stringify({
-          query: query,
-          variables: variables,
-        }),
-      };
-    }else{
-      options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },body: JSON.stringify({
-          query: query,
-          variables: variables,
-        }),
-      };
-    }return options;
-  }
+      if("auth_token" in a){
+        console.log("ahh yes");
+        console.log(a.auth_token);
+        options = {
+          method: "POST",
+          headers: {
+            'Authorization': 'Bearer ' + a.auth_token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },body: JSON.stringify({
+            query: query,
+            variables: variables,
+          }),
+        };
+      }else{
+        options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Accept': "application/json",
+          },body: JSON.stringify({
+            query: query,
+            variables: variables,
+          }),
+        };
+    };
 
-  returnHeader()
   
-  let a = await fetch(url, options)
+  let c = fetch(url, options)
     .then(handleResponse)
     .then(handleData)
     .catch((error) => {
@@ -211,16 +202,17 @@ async function requestAnilist(query,variables) {
     });
 
     let aboutAnime={
-      key:a.data.Media.description,
-      coverImage:a.data.Media.coverImage.large,
-      titleEnglish:a.data.Media.title.english,
-      latestAnime:a.data.Media.id
+      key:c.data.Media.description,
+      coverImage:c.data.Media.coverImage.large,
+      titleEnglish:c.data.Media.title.english,
+      latestAnime:c.data.Media.id
     }
 
     chrome.storage.sync.set(aboutAnime, function() {
       console.log(aboutAnime);
     });
-}
+  }
+)}
 
 /*
 Returns the Anime Info call stack is 
