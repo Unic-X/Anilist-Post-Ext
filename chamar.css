@@ -39,7 +39,7 @@ input[type=number] {
 }
 
 body {
-    font-size: 20px;
+    font-size: 18px;
     font-family: "SFProRegular";
     width:350px;
     background-color: #202125;
@@ -64,7 +64,7 @@ body {
   
   .Back { grid-area: Back; }
   
-  .AnimeName { grid-area: AnimeName; text-align: center; font-family: "SFProRegular";}
+  .AnimeName { grid-area: AnimeName;font-family: "SFPro"; text-align: center; font-size: 22px; }
   
   .Info-Like { grid-area: Info-Like; }
   .Info-Like>svg{
@@ -76,7 +76,7 @@ body {
     margin-left: 5px;
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
-    grid-template-rows: 2fr repeat(2, 0.2fr);
+    grid-template-rows: 2fr 0.2fr;
     gap: 2px 4px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -88,11 +88,18 @@ body {
   
   .Image { grid-area: Image;border-radius: 8px; }
   
-  .Name { grid-area: Name; }
+  .Name { grid-area: Name; font-family: "SFPro"; font-size: 20;}
   
   .Status { grid-area: Status; }
   
-  .Status2 { grid-area: Status2; }
+  .Status2 { grid-area: Status2; display: flex;flex-direction:column; }
+  select{
+    border: none;
+    background-color: #383a41;
+    border-radius: 4px;
+    height:35px;
+    color: #fefeff;
+  }
   
   .AllahCumming {
     margin-left: 5px;
@@ -111,6 +118,14 @@ body {
   }
   
   .Episodes-Watched { grid-area: Episodes-Watched; }
+  .hellothe>div{
+    display: inline-block;
+    position: relative;
+  }
+  .lastEP>button{
+    right: 0%;
+    position: absolute;
+  }
   
   .Rating { grid-area: Rating; }
     .TimesRW>div,button{

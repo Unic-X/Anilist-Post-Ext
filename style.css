@@ -12,8 +12,8 @@ body {
     grid-template-rows: 20px 300px;
     grid-auto-rows: minmax(200px,auto);
     grid-template-columns: 150px auto;
-
   }
+  
 .item1{
   grid-column: span 2;
   text-align: center;
