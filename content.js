@@ -156,11 +156,23 @@ function handleResponse(response) {
 }
 
 function handleData(data) {
+  let aboutAnime={
+    key:          data.data.Media.description,
+    coverImage:   data.data.Media.coverImage.large,
+    titleEnglish: data.data.Media.title.english,
+    latestAnime:  data.data.Media.id
+  }
+
+  chrome.storage.sync.set(aboutAnime, function() {
+    console.log(aboutAnime);
+  });
+
   return data;
 }
 function halwa(a){
   return a
 }
+
 
 async function requestAnilist(query,variables) {
   let url = 'https://graphql.anilist.co';
@@ -193,24 +205,12 @@ async function requestAnilist(query,variables) {
         };
     };
 
-  
-  let c = fetch(url, options)
+  let c = Promise.resolve(fetch(url, options)
     .then(handleResponse)
     .then(handleData)
     .catch((error) => {
       console.warn(error);
-    });
-
-    let aboutAnime={
-      key:c.data.Media.description,
-      coverImage:c.data.Media.coverImage.large,
-      titleEnglish:c.data.Media.title.english,
-      latestAnime:c.data.Media.id
-    }
-
-    chrome.storage.sync.set(aboutAnime, function() {
-      console.log(aboutAnime);
-    });
+    }));
   }
 )}
 
@@ -271,8 +271,6 @@ function updateUser(stat){
 }
 
 Promise.resolve(getAnime());
-
-
 /*
 Call Stack 
 getAnime()→toAnimeName()→checkSite()→containsURL()→Matches the URL with given input
