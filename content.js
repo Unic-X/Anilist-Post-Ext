@@ -205,7 +205,7 @@ async function requestAnilist(query,variables) {
         };
     };
 
-  let c = Promise.resolve(fetch(url, options)
+  Promise.resolve(fetch(url, options)
     .then(handleResponse)
     .then(handleData)
     .catch((error) => {

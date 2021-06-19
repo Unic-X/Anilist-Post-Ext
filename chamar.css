@@ -43,7 +43,7 @@ body {
     font-family: "SFProRegular";
     width:350px;
     background-color: #202125;
-    color:#fefeff;
+    color:#ffffff;
     
   }
 .container {
@@ -122,9 +122,8 @@ body {
     display: inline-block;
     position: relative;
   }
-  .lastEP>button{
-    right: 0%;
-    position: absolute;
+  .lastEPMinus{
+    float: right;
   }
   
   .Rating { grid-area: Rating; }
