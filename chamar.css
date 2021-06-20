@@ -106,7 +106,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    gap: 4px 0px;
+    gap: 10px 0px;
     grid-auto-flow: row;
     grid-template-areas:
       "Episodes-Watched Episodes-Watched Episodes-Watched"
