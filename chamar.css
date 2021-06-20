@@ -118,7 +118,7 @@ body {
   }
   
   .Episodes-Watched { grid-area: Episodes-Watched; }
-  .hellothe>div{
+  .sliderBlock>div{
     display: inline-block;
     position: relative;
   }
