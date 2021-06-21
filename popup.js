@@ -3,36 +3,51 @@ var paadu={
     coverImage:null,
     titleEnglish:null,
 };
+
+const addbuttons={
+    addEpWatched : [document.getElementById("lastEpPlus"),"inputEpWatched"],
+    addRewatched: [document.getElementById("TimesRWPlus"),"inputRW"]
+}
+const minusButtons={
+    removeEpWatched : [document.getElementById("lastEpMinus"),"inputEpWatched"],
+    removeRewatched: [document.getElementById("TimesRWMinus"),"inputRW"]
+}
+
 const signInButton=document.getElementById("sign_in");
 
-const removeEpWatched = document.getElementById("lastEpMinus");
+function addEp(tag,target) {
+    tag.addEventListener("click",()=>{
+        const inputEpWatched = document.getElementById(target);
+        var c = parseInt(inputEpWatched.value);
+        if(isNaN(c)){
+            c=0
+        }
+        c++;
+        inputEpWatched.value = c;
+        inputEpWatched.innerHTML = c;
+    })
+}
 
-const addEpWatched = document.getElementById("lastEpPlus");
+function removeEp(tag,target){
+    tag.addEventListener("click",()=>{
+        const inputEpWatched = document.getElementById(target);
+        var c = parseInt(inputEpWatched.value);
+        if(isNaN(c) || c===0){
+            return
+        }
+        c--;
+        inputEpWatched.value = c;
+        inputEpWatched.innerHTML = c;
+    })
+}
 
-addEpWatched.addEventListener("click",()=>{
-    const inputEpWatched = document.getElementById("inputEpWatched");
-    var c = parseInt(inputEpWatched.value);
-    if(isNaN(c)){
-        c=0
-    }
-    c++;
-    inputEpWatched.value = c;
-    inputEpWatched.innerHTML = c;
-})
+for(const tag in addbuttons){
+    addEp(addbuttons[tag][0],addbuttons[tag][1]);
+}
 
-removeEpWatched.addEventListener("click",()=>{
-    const inputEpWatched = document.getElementById("inputEpWatched");
-    var c = parseInt(inputEpWatched.value);
-    if(isNaN(c) || c===0){
-        return
-    }
-    c--;
-    inputEpWatched.value = c;
-    inputEpWatched.innerHTML = c;
-})
-
-
-
+for(const tag in minusButtons){
+    removeEp(minusButtons[tag][0],minusButtons[tag][1]);
+}
 signInButton.addEventListener("click",()=>{
     chrome.tabs.create({ url: "https://anilist.co/api/v2/oauth/authorize?client_id=5474&response_type=token" })
 });
