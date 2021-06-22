@@ -1,8 +1,10 @@
-var paadu={
+var tempAD={
     key:null,
     coverImage:null,
     titleEnglish:null,
 };
+
+
 
 const addbuttons={
     addEpWatched : [document.getElementById("lastEpPlus"),"inputEpWatched"],
@@ -52,7 +54,7 @@ signInButton.addEventListener("click",()=>{
     chrome.tabs.create({ url: "https://anilist.co/api/v2/oauth/authorize?client_id=5474&response_type=token" })
 });
 
-function allah(a,b){
+function changeInner(a,b){
     if(a.length>14){
         document.getElementById("animeTitle").innerHTML=a.slice(0,11)+"...";
     }else{
@@ -66,11 +68,11 @@ chrome.storage.sync.get(['titleEnglish','coverImage',"auth_token"], function(res
         signInButton.innerHTML="Log Out";
         signInButton.id="signed_in";
     }
-    paadu.coverImage=result.coverImage;paadu.titleEnglish=result.titleEnglish;
-    allah(result.titleEnglish,result.coverImage);
+    tempAD.coverImage=result.coverImage;tempAD.titleEnglish=result.titleEnglish;
+    changeInner(result.titleEnglish,result.coverImage);
 });
 
-var acha={
+var tempADOC={
     key:null,
     coverImage:null,
     titleEnglish:null,
@@ -80,8 +82,8 @@ var acha={
 `Changes the storage values when any change from content.js`
 chrome.storage.onChanged.addListener(()=>{
     chrome.storage.sync.get(['titleEnglish','coverImage'], function(result) {
-        acha.titleEnglish=result.titleEnglish;acha.coverImage=result.coverImage;
-        allah(result.titleEnglish,result.coverImage);
+        tempADOC.titleEnglish=result.titleEnglish;tempADOC.coverImage=result.coverImage;
+        changeInner(result.titleEnglish,result.coverImage);
     });
 })
 

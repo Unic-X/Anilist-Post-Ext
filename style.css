@@ -16,7 +16,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number]{
   font-family: "SFPro";
-  width: 125px;
+  width: 150px;
   border: none;
   background:transparent;
   color: #fefeff;
@@ -41,7 +41,8 @@ input[type=number] {
 body {
     font-size: 18px;
     font-family: "SFProRegular";
-    width:350px;
+    width:400px;
+    height: 550px;
     background-color: #202125;
     color:#ffffff;
     
@@ -73,6 +74,7 @@ body {
   }
   
   .Main {
+    font-size:larger;
     margin-left: 5px;
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
@@ -150,7 +152,7 @@ body {
       display: inline-block;
     }
     .TimesRW > div > input {
-      width: 270px;
+      width: 320px;
      }
      
 
