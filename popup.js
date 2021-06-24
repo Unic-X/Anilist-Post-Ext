@@ -1,10 +1,15 @@
-var tempAD={
+let tempAD={
     key:null,
     coverImage:null,
     titleEnglish:null,
 };
 
-
+let lastState= {
+    lastEP : null,
+    lastRating : null,
+    lastTimesRewatched:null,
+    lastStartDate:null,
+}
 
 const addbuttons={
     addEpWatched : [document.getElementById("lastEpPlus"),"inputEpWatched"],
@@ -72,7 +77,7 @@ chrome.storage.sync.get(['titleEnglish','coverImage',"auth_token"], function(res
     changeInner(result.titleEnglish,result.coverImage);
 });
 
-var tempADOC={
+let tempADOC={
     key:null,
     coverImage:null,
     titleEnglish:null,
@@ -87,7 +92,24 @@ chrome.storage.onChanged.addListener(()=>{
     });
 })
 
-
+function updateUser(stat){
+    let query =`
+      mutation ($mediaId: Int, $status: MediaListStatus,$score: Int) {
+        SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $score) {
+            id
+            status,
+            progress
+        }
+      }
+      `;
+      let id=null;
+      chrome.storage.sync.get([latestAnime],(result)=>{
+        id=result.latestAnime
+      });
+      let variables = stat;
+  
+      requestAnilist(query,variables)
+  }
 
 
 //const changeLang=document.getElementById("sign_in");

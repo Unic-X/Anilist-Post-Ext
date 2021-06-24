@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="utils/slider.css" />
+    <script src="utils/jquery.slim.min.js"></script>
+    <script src="utils/slider.js"></script>
     <script defer src="popup.js" type="text/javascript"></script>
     <title>Title</title>
 </head>
@@ -41,7 +44,8 @@
           </div>
           <div class="Rating">Rating:
             <div class="VisibilityCB">
-              <div class="sliderBlock">Slider Here</div>
+              <div class="sliderBlock"> <input type="range" id="sliderOP" min="0" max="10" value="0">
+              </div>
             </div>
           </div>
           <div class="Start-Date-End-Date">Start-Date

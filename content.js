@@ -249,26 +249,6 @@ async function getAnime(){
   await requestAnilist(query,variables);
 }
 
-function updateUser(stat){
-  let query =`
-    mutation ($mediaId: Int, $status: MediaListStatus) {
-      SaveMediaListEntry (mediaId: $mediaId, status: $status) {
-        id
-        status
-        }
-      }
-    `;
-    let id=null;
-    chrome.storage.sync.get([latestAnime],(result)=>{
-      id=result.latestAnime
-    });
-    let variables = {
-      mediaId:id,
-      status:stat
-    };
-
-    requestAnilist(query,variables)
-}
 
 Promise.resolve(getAnime());
 /*

@@ -15,9 +15,10 @@ query ($id: Int, $search: String) {
         }
     }
 }
-mutation ($mediaId: Int, $status: MediaListStatus) {
-    SaveMediaListEntry (mediaId: $mediaId, status: $status) {
-        id
-        status
+mutation ($mediaId: Int, $status: MediaListStatus,$score: Int) {
+      SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $score) {
+          id
+          status,
+          progress
+      }
     }
-}

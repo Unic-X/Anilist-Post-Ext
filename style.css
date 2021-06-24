@@ -120,6 +120,11 @@ body {
   }
   
   .Episodes-Watched { grid-area: Episodes-Watched; }
+
+  #sliderOP{
+    margin-left: 20px;
+    width: 350px;
+  }
   .sliderBlock>div{
     display: inline-block;
     position: relative;
