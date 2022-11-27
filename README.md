@@ -14,7 +14,7 @@
 ## About
 
 Extension provides a way to add the currently watching anime directly to the Anilist or so to say syncs the anime watching from the website 
-- Requires the user to login and proceed
-> The process of manually providing the token to authenticate has been shortened to Implicit Grant 
+- Requires the user to login 
+> The process of manually providing the token to authenticate has been shortened to implicit grant 
 
 
